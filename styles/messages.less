@@ -25,18 +25,25 @@
       background: @input-background-color;
       padding: @component-padding;
       border-radius: @component-border-radius;
+      border-left: 2px solid @text-color-subtle;
       overflow-x: auto;
       margin: @component-padding 0;
+      font-family: var(--editor-font-family);
+      font-size: 0.9em;
+      line-height: 1.5;
     }
 
     code {
       padding: 2px 4px;
       border-radius: 3px;
+      font-family: var(--editor-font-family);
+      font-size: 0.9em;
     }
 
     pre code {
       padding: 0;
       background: none;
+      font-size: inherit;
     }
 
     // Markdown table styles

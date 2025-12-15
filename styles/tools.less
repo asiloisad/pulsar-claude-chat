@@ -8,12 +8,12 @@
   .tool-header {
     display: flex;
     align-items: baseline;
-    gap: @component-padding / 2;
+    gap: @component-padding;
+    min-width: 0; // Enable text truncation in flex children
   }
 
   .tool-name {
     font-weight: bold;
-    padding-right: @component-padding;
     font-size: 1.1em;
     display: inline-flex;
     align-items: center;
@@ -35,9 +35,18 @@
   }
 
   .tool-path {
+    font-family: var(--editor-font-family);
     font-size: 0.85em;
     color: @text-color-subtle;
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    // Show end of path (filename) when truncated
+    direction: rtl;
+    text-align: left;
+
     &:hover {
       text-decoration: underline;
     }
@@ -45,8 +54,9 @@
 
   .tool-path-info {
     opacity: 0.6;
-    font-size: 0.9em;
-    margin-left: 1em;
+    font-size: 0.85em;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .tool-info {
@@ -83,19 +93,20 @@
     background: @input-background-color;
     padding: 2px 6px;
     border-radius: 3px;
-    margin-right: @component-padding;
   }
 
   .tool-count {
     opacity: 0.6;
     font-size: 0.85em;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .tool-result-info {
     opacity: 0.6;
     font-size: 0.85em;
-    font-family: var(--editor-font-family);
-    margin-left: 1em;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   // Tool result display
@@ -182,6 +193,13 @@
     }
   }
 
+  // Generic tool error state
+  &.tool-error {
+    .tool-name {
+      color: @text-color-error;
+    }
+  }
+
   // Expandable content
   .tool-content {
     margin-top: @component-padding;
@@ -263,13 +281,19 @@
   // Todo list styles
   .tool-todo-list {
     margin-top: @component-padding;
+    padding: @component-padding;
+    background: @input-background-color;
+    border: 1px solid @tool-panel-border-color;
+    border-radius: 5px;
+    width: fit-content;
+    min-width: 200px;
   }
 
   .todo-item {
     display: flex;
     align-items: flex-start;
     gap: @component-padding / 2;
-    // padding: 4px 0;
+    padding: 2px 0;
 
     .todo-icon {
       flex-shrink: 0;
@@ -282,7 +306,6 @@
 
     &.todo-completed {
       opacity: 0.6;
-      // .todo-content { text-decoration: line-through; }
       .todo-icon { color: @text-color-success; }
     }
 

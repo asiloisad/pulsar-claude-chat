@@ -1,5 +1,4 @@
 @import "ui-variables";
-@import (css) "../node_modules/katex/dist/katex.min.css";
 
 // Message styles
 
@@ -77,20 +76,24 @@
       color: @text-color-subtle;
     }
 
-    // Math block styles (KaTeX)
+    // Math block styles (MathJax SVG)
     .math-block {
       margin: @component-padding 0;
       text-align: center;
       overflow-x: auto;
+
+      svg {
+        max-width: 100%;
+      }
     }
 
     .math-inline {
       display: inline;
-    }
+      vertical-align: middle;
 
-    // Override KaTeX font size to match chat
-    .katex {
-      font-size: 1.1em;
+      svg {
+        vertical-align: middle;
+      }
     }
 
   }

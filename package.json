@@ -15,8 +15,8 @@
     "atom": ">=1.100.0 <2.0.0"
   },
   "dependencies": {
+    "@mathjax/src": "^4.0.0",
     "etch": "^0.14.1",
-    "katex": "^0.16.11",
     "pulsar-select-list": "^1.0.2"
   },
   "deserializers": {

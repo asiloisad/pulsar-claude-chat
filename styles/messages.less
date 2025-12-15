@@ -1,0 +1,422 @@
+@import "ui-variables";
+// Message styles
+
+.message {
+  padding: @component-padding;
+  border-radius: @component-border-radius;
+
+  .message-role {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+
+  .message-content {
+    line-height: 1.8;
+
+    &.message-markdown :last-child {
+      margin-bottom: 0px;
+    }
+
+    // Markdown styles
+    pre {
+      background: @input-background-color;
+      padding: @component-padding;
+      border-radius: @component-border-radius;
+      overflow-x: auto;
+      margin: @component-padding 0;
+    }
+
+    code {
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    pre code {
+      padding: 0;
+      background: none;
+    }
+
+    // Markdown table styles
+    table {
+      border-collapse: collapse;
+      margin: @component-padding 0;
+      font-size: 0.9em;
+    }
+
+    th, td {
+      padding: 6px 10px;
+      border: 1px solid @base-border-color;
+      text-align: left;
+    }
+
+    th {
+      background: @input-background-color;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: fade(@input-background-color, 30%);
+    }
+
+    p, ol {
+      margin-bottom: 0px;
+    }
+
+    ul, ol {
+      padding-left: 1.5em;
+    }
+
+  }
+
+}
+
+// User message block - standalone bubble outside timeline
+.message-user {
+  width: fit-content;
+  min-width: 100px;
+  max-width: 100%;
+  // width: 100%;
+  border: 1px solid @accent-color;
+  border-left: 2px solid @accent-color;
+  border-radius: 5px;
+
+  .message-role {
+    color: @text-color-info;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+}
+
+// Attach badge shown in user messages (same style as attach-indicator)
+.attach-badge {
+  color: @text-color;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border: 1px solid fade(@accent-color, 50%);
+  border-radius: @component-border-radius;
+  font-size: 0.85em;
+  cursor: default;
+  font-weight: normal;
+  max-width: 180px;
+  overflow: hidden;
+
+  .icon {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  .attach-badge-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+// Response sequence with timeline
+.response-sequence {
+  margin: @component-padding 0;
+  padding-left: 12px;
+  position: relative;
+
+  // Streaming sequence following another sequence - reduce gap for line continuity
+  &.streaming-sequence {
+    margin-top: 0;
+  }
+}
+
+// Timeline item
+.timeline-item {
+  position: relative;
+  padding-bottom: @component-padding / 2;
+
+  &.timeline-last {
+    padding-bottom: 0;
+  }
+}
+
+// Timeline dot - aligned with first line of text
+// Messages have padding: tools ~5px top, assistant ~10px top
+// Dot should align with center of first text line
+.timeline-dot {
+  position: absolute;
+  left: -9px;
+  top: @component-padding + 5px + 3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: @text-color-subtle;
+  z-index: 2;
+
+  &.dot-assistant { background: #61afef; } // blue
+  &.dot-tool { background: #e5c07b; } // yellow
+  &.dot-error { background: #e06c75; } // red
+
+  // Tool-specific dot colors
+  &.dot-read { background: #56b6c2; } // cyan
+  &.dot-write { background: #98c379; } // green
+  &.dot-edit { background: #e5c07b; } // yellow
+  &.dot-bash { background: #c678dd; } // purple
+  &.dot-glob, &.dot-grep { background: #61afef; } // blue
+  &.dot-task { background: #d19a66; } // orange
+  &.dot-webfetch, &.dot-websearch { background: #56b6c2; } // cyan
+  &.dot-todowrite { background: #98c379; } // green
+  &.dot-notebookedit { background: #e5c07b; } // yellow
+}
+
+// Timeline line connecting dots - extends to reach next dot
+.timeline-line {
+  position: absolute;
+  left: -7px;
+  top: @component-padding + 10px + 3px; // Below 8px dot
+  // Extend into next item to reach the next dot
+  bottom: -(@component-padding / 2 + @component-padding + 2px);
+  width: 2px;
+  background: fade(@text-color-subtle, 30%);
+  z-index: 1;
+}
+
+// For last item that connects to next sequence (extends across sequence gap)
+.timeline-item:last-child:not(.timeline-last) .timeline-line {
+  // Extend further to reach streaming sequence's dot
+  bottom: -(@component-padding + @component-padding + 2px);
+}
+
+// Timeline content wrapper
+.timeline-content {
+  .message {
+    margin-bottom: 0;
+  }
+}
+
+// Remove margins from messages inside timeline
+.response-sequence .message {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.message-assistant {
+  background: transparent;
+
+  // Cursor shown only when streaming class is added (controlled by JS)
+  &.streaming .message-content::after {
+    content: '▋';
+    animation: blink 1s infinite;
+  }
+}
+
+.message-error {
+  background: fade(@background-color-error, 20%);
+  color: @text-color-error;
+  display: flex;
+  align-items: center;
+  gap: @component-padding;
+
+  .error-icon {
+    font-weight: bold;
+  }
+}
+
+// Loading indicator with bouncing dots
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.8;
+  font-style: italic;
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: @text-color-subtle;
+    animation: bounce 1.4s ease-in-out infinite;
+
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 0.2s; }
+    &:nth-child(3) { animation-delay: 0.4s; }
+  }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// Permission request
+.permission-request {
+  background: @background-color-warning;
+  padding: @component-padding;
+  border-radius: @component-border-radius;
+  display: flex;
+  align-items: center;
+  gap: @component-padding;
+  margin-bottom: @component-padding;
+
+  .permission-text {
+    flex: 1;
+  }
+
+  .btn {
+    margin: 0;
+  }
+}
+
+// Cursor blink animation
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+// Thinking block styles
+.thinking-block {
+  background: fade(@background-color-info, 15%);
+  border: 1px solid fade(@text-color-info, 30%);
+  border-radius: @component-border-radius;
+  margin-bottom: @component-padding;
+  font-size: 0.9em;
+
+  .thinking-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px @component-padding;
+    cursor: pointer;
+    color: @text-color-info;
+
+    .icon-light-bulb {
+      opacity: 0.8;
+    }
+
+    .thinking-label {
+      font-weight: 600;
+    }
+
+    .thinking-preview {
+      opacity: 0.6;
+      font-style: italic;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+  }
+
+  .thinking-content {
+    border-top: 1px solid fade(@text-color-info, 20%);
+    padding: @component-padding;
+    max-height: 300px;
+    overflow-y: auto;
+
+    pre {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 0.95em;
+      line-height: 1.4;
+      color: @text-color-subtle;
+    }
+  }
+
+  // Collapsed state - hide preview when open
+  &[open] .thinking-preview {
+    display: none;
+  }
+}
+
+// Streaming thinking - always expanded, no details/summary
+.thinking-streaming {
+  .thinking-header {
+    cursor: default;
+
+    .streaming-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: @text-color-info;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+  }
+
+  .thinking-content {
+    border-top: 1px solid fade(@text-color-info, 20%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+// Welcome page styles
+.welcome-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  padding: @component-padding * 2;
+}
+
+.welcome-content {
+  max-width: 400px;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 1.8em;
+  font-weight: 600;
+  margin: 0 0 @component-padding / 2;
+  color: @text-color-highlight;
+}
+
+.welcome-subtitle {
+  font-size: 1.1em;
+  opacity: 0.6;
+  margin: 0 0 @component-padding * 2;
+}
+
+.welcome-tips {
+  text-align: left;
+}
+
+.tip-section {
+  margin-bottom: @component-padding * 1.5;
+
+  h3 {
+    font-size: 0.95em;
+    font-weight: 600;
+    margin: 0 0 @component-padding / 2;
+    color: @text-color-info;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.2em;
+    font-size: 0.9em;
+    opacity: 0.8;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  kbd {
+    background: @input-background-color;
+    border: 1px solid @base-border-color;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 0.85em;
+    font-family: var(--editor-font-family);
+  }
+}

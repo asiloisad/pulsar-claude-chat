@@ -1,0 +1,129 @@
+@import "ui-variables";
+
+// Input area styles
+
+.claude-chat-input {
+  border-top: 1px solid @base-border-color;
+  padding: @component-padding;
+  background: @tool-panel-background-color;
+
+  .editor-container {
+    margin-bottom: @component-padding / 2;
+    border: 1px solid @base-border-color;
+    border-radius: @component-border-radius;
+    transition: border-color 0.15s ease;
+
+    &:focus-within {
+      border-color: @accent-color;
+    }
+
+    atom-text-editor {
+      min-height: 60px;
+      max-height: 150px;
+      padding: (@component-padding / 2);
+      border-radius: 6px;
+
+      .placeholder-text {
+        padding-left: 4px;
+      }
+
+      .cursor-line {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.claude-chat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: (@component-padding / 2);
+  gap: @component-padding;
+
+  .token-usage {
+    font-size: 0.9em;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  .attach-indicator {
+    color: @text-color;
+    display: flex;
+    align-items: center;
+    padding: 2px 8px;
+    border: 1px solid fade(@accent-color, 50%);
+    border-radius: @component-border-radius;
+    font-size: 0.85em;
+    cursor: pointer;
+    max-width: 180px;
+    overflow: hidden;
+
+    &:hover {
+      background: fade(@accent-color, 25%);
+    }
+
+    .icon {
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+
+    .attach-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: @component-padding / 2;
+  }
+
+  .thinking-btn {
+    margin-right: 8px;
+  }
+
+  .permission-mode {
+    margin-right: 8px;
+  }
+
+  // Animated loading dots
+  .loading-dots {
+    display: inline-flex;
+    gap: 2px;
+
+    .dot {
+      animation: loading-bounce 1.4s infinite ease-in-out both;
+      font-weight: bold;
+
+      &:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+
+      &:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 0s;
+      }
+    }
+  }
+}
+
+@keyframes loading-bounce {
+
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}

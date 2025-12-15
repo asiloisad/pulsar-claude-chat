@@ -1,0 +1,286 @@
+// Tool message styles
+
+.message-tool {
+  background: transparent;
+  padding: @component-padding / 2 0;
+  font-size: 0.9em;
+
+  .tool-header {
+    display: flex;
+    align-items: baseline;
+    gap: @component-padding / 2;
+  }
+
+  .tool-name {
+    font-weight: bold;
+    padding-right: @component-padding;
+    font-size: 1.1em;
+
+    &.tool-toggle {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .tool-path {
+    font-size: 0.85em;
+    color: @text-color-subtle;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .tool-path-info {
+    opacity: 0.6;
+    font-size: 0.9em;
+    margin-left: 1em;
+  }
+
+  .tool-info {
+    opacity: 0.8;
+    font-family: var(--editor-font-family);
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tool-command {
+    font-family: var(--editor-font-family);
+    font-size: 0.85em;
+    background: @input-background-color;
+    padding: 2px 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 300px;
+  }
+
+  .tool-pattern {
+    font-family: var(--editor-font-family);
+    font-size: 0.9em;
+    background: @input-background-color;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: @component-padding;
+  }
+
+  .tool-count {
+    opacity: 0.6;
+    font-size: 0.85em;
+  }
+
+  .tool-result-info {
+    opacity: 0.6;
+    font-size: 0.85em;
+    font-family: var(--editor-font-family);
+    margin-left: 1em;
+  }
+
+  // Tool result display
+  .tool-result {
+    margin-top: @component-padding;
+    padding: @component-padding / 2;
+    background: @input-background-color;
+    border-radius: @component-border-radius;
+    font-family: var(--editor-font-family);
+    font-size: 0.85em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 300px;
+    overflow-y: auto;
+    border-left: 2px solid @text-color-subtle;
+  }
+
+  .tool-result-error {
+    border-left-color: @text-color-error;
+    background: fade(@text-color-error, 10%);
+  }
+
+  // Expandable content
+  .tool-content {
+    margin-top: @component-padding;
+    padding: @component-padding / 2;
+    background: @input-background-color;
+    border: 1px solid @tool-panel-border-color;
+    border-radius: 5px;
+    font-family: var(--editor-font-family);
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  // Diff styles for Edit tool
+  .tool-diff {
+    margin-top: @component-padding;
+    border-radius: @component-border-radius;
+    overflow: hidden;
+  }
+
+  .diff-section {
+    display: flex;
+    align-items: center;
+    font-family: var(--editor-font-family);
+    font-size: 0.85em;
+
+    .diff-marker {
+      width: 20px;
+      text-align: center;
+      font-weight: bold;
+      flex-shrink: 0;
+      border: 1px solid @tool-panel-border-color;
+    }
+
+    .diff-content {
+      flex: 1;
+      margin: 0;
+      padding: @component-padding / 2;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 150px;
+      overflow-y: auto;
+      border-radius: 0px;
+      border: 1px solid @tool-panel-border-color;
+    }
+  }
+
+  .diff-remove {
+    background: fade(@text-color-error, 15%);
+    .diff-marker { color: @text-color-error; }
+  }
+
+  .diff-add {
+    background: fade(@text-color-success, 15%);
+    .diff-marker { color: @text-color-success; }
+  }
+
+  // Todo list styles
+  .tool-todo-list {
+    margin-top: @component-padding;
+  }
+
+  .todo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: @component-padding / 2;
+    // padding: 4px 0;
+
+    .todo-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .todo-content {
+      flex: 1;
+    }
+
+    &.todo-completed {
+      opacity: 0.6;
+      // .todo-content { text-decoration: line-through; }
+      .todo-icon { color: @text-color-success; }
+    }
+
+    &.todo-in_progress {
+      .todo-icon { color: @text-color-info; }
+    }
+
+    &.todo-pending {
+      .todo-icon { opacity: 0.4; }
+    }
+  }
+
+  // Collapsed state
+  &.collapsed {
+    .tool-content,
+    .tool-diff,
+    .tool-todo-list,
+    .tool-result,
+    .tool-bash-content,
+    .tool-task-content {
+      display: none;
+    }
+  }
+}
+
+// Tool type specific styles (dot colors handled in messages.less)
+
+.tool-webfetch {
+  .tool-url {
+    font-family: var(--editor-font-family);
+    font-size: 0.9em;
+    color: @text-color-info;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+.tool-task {
+  .tool-agent-type {
+    font-family: var(--editor-font-family);
+    font-size: 0.85em;
+    background: fade(@text-color-highlight, 15%);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: @text-color-highlight;
+  }
+
+  .tool-description {
+    opacity: 0.8;
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.tool-notebook {
+  .tool-edit-mode {
+    font-family: var(--editor-font-family);
+    color: @text-color-warning;
+    // padding: 1px 6px;
+    border-radius: 3px;
+    margin-right: @component-padding;
+  }
+}
+
+.tool-askuser {
+  .tool-question {
+    flex: 1;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.tool-agentoutput,
+.tool-bashoutput {
+  .tool-agent-id,
+  .tool-bash-id {
+    font-family: var(--editor-font-family);
+    font-size: 0.85em;
+    background: @input-background-color;
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  .tool-block-mode {
+    opacity: 0.6;
+    font-size: 0.85em;
+  }
+}
+
+.tool-killshell {
+  .tool-shell-id {
+    font-family: var(--editor-font-family);
+    font-size: 0.85em;
+    background: @input-background-color;
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+}

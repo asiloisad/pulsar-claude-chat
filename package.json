@@ -1,0 +1,112 @@
+{
+  "name": "claude-chat",
+  "main": "./lib/main",
+  "version": "0.1.0",
+  "description": "Interactive chat panel for Claude Code CLI",
+  "keywords": [
+    "claude",
+    "ai",
+    "chat",
+    "assistant"
+  ],
+  "repository": "https://github.com/asiloisad/pulsar-claude-chat",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.100.0 <2.0.0"
+  },
+  "dependencies": {
+    "etch": "^0.14.1",
+    "pulsar-select-list": "^1.0.2"
+  },
+  "deserializers": {
+    "claude-chat/ChatPanel": "deserializeChatPanel"
+  },
+  "activationCommands": {
+    "atom-workspace": [
+      "claude-chat:toggle",
+      "claude-chat:new-chat",
+      "claude-chat:history"
+    ]
+  },
+  "providedServices": {
+    "claude-chat": {
+      "versions": {
+        "1.0.0": "provideService"
+      }
+    }
+  },
+  "configSchema": {
+    "claudePath": {
+      "title": "Claude CLI Path",
+      "description": "Path to Claude CLI executable",
+      "type": "string",
+      "default": "claude",
+      "order": 0
+    },
+    "panelPosition": {
+      "title": "Panel Position",
+      "description": "Default position for the chat panel",
+      "type": "string",
+      "default": "right",
+      "enum": [
+        "center",
+        "left",
+        "right",
+        "bottom"
+      ],
+      "order": 1
+    },
+    "model": {
+      "title": "Model",
+      "description": "Claude model to use",
+      "type": "string",
+      "default": "default",
+      "enum": [
+        "default",
+        "sonnet",
+        "opus",
+        "haiku"
+      ],
+      "order": 2
+    },
+    "permissionMode": {
+      "title": "Permission Mode",
+      "description": "How to handle permission requests",
+      "type": "string",
+      "default": "default",
+      "enum": [
+        {
+          "value": "default",
+          "description": "Prompt for dangerous operations"
+        },
+        {
+          "value": "plan",
+          "description": "Read-only mode"
+        },
+        {
+          "value": "acceptEdits",
+          "description": "Auto-accept file edits"
+        },
+        {
+          "value": "bypassPermissions",
+          "description": "Auto-accept all"
+        }
+      ],
+      "order": 3
+    },
+    "allowedTools": {
+      "title": "Allowed Tools",
+      "description": "Comma-separated list of tools Claude can use",
+      "type": "string",
+      "default": "Read,Write,Edit,Glob,Grep,Bash",
+      "order": 4
+    },
+    "thinkingMode": {
+      "title": "Extended Thinking",
+      "description": "Enable extended thinking mode to see Claude's reasoning process",
+      "type": "boolean",
+      "default": false,
+      "order": 5
+    }
+  }
+}

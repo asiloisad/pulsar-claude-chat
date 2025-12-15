@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "etch": "^0.14.1",
+    "katex": "^0.16.11",
     "pulsar-select-list": "^1.0.2"
   },
   "deserializers": {

@@ -103,7 +103,7 @@
     margin-top: @component-padding;
     padding: @component-padding / 2;
     background: @input-background-color;
-    border-radius: @component-border-radius*2 !important;
+    border-radius: @component-border-radius*2;
     font-family: var(--editor-font-family);
     font-size: 0.85em;
     white-space: pre-wrap;
@@ -164,6 +164,7 @@
   // Error output styling
   .bash-output-error {
     background: fade(@text-color-error, 8%);
+    border-radius: 0px !important;
 
     .bash-output-text {
       color: @text-color-error;
@@ -294,6 +295,74 @@
     }
   }
 
+  // Search results (Glob/Grep)
+  .search-results {
+    margin-top: @component-padding;
+    border-radius: 5px;
+    overflow: hidden;
+    background: @input-background-color;
+    border: 1px solid @tool-panel-border-color;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .search-entry {
+    display: flex;
+    align-items: baseline;
+    padding: 3px @component-padding;
+    border-bottom: 1px solid fade(@tool-panel-border-color, 50%);
+    font-family: var(--editor-font-family);
+    font-size: 0.85em;
+    gap: @component-padding;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: fade(@text-color-highlight, 5%);
+    }
+  }
+
+  .search-path {
+    color: @text-color-subtle;
+    text-decoration: none;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    // Show end of path (filename) when truncated
+    direction: rtl;
+    text-align: left;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .search-line {
+    color: @text-color-subtle;
+  }
+
+  .search-content {
+    color: @text-color-subtle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .search-more {
+    padding: 4px @component-padding;
+    color: @text-color-subtle;
+    font-size: 0.85em;
+    font-style: italic;
+    text-align: center;
+    background: fade(@input-background-color, 50%);
+  }
+
   // Collapsed state
   &.collapsed {
     .tool-content,
@@ -302,7 +371,8 @@
     .tool-result,
     .tool-bash-content,
     .tool-task-content,
-    .tool-preview {
+    .tool-preview,
+    .search-results {
       display: none;
     }
   }

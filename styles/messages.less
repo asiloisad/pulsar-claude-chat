@@ -1,4 +1,6 @@
 @import "ui-variables";
+@import (css) "../node_modules/katex/dist/katex.min.css";
+
 // Message styles
 
 .message {
@@ -68,11 +70,43 @@
       padding-left: 1.5em;
     }
 
+    // Blockquote styles
+    blockquote {
+      margin: @component-padding 0;
+      border-radius: @component-border-radius;
+      color: @text-color-subtle;
+    }
+
+    // Math block styles (KaTeX)
+    .math-block {
+      margin: @component-padding 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .math-inline {
+      display: inline;
+    }
+
+    // Override KaTeX font size to match chat
+    .katex {
+      font-size: 1.1em;
+    }
+
   }
 
 }
 
-// User message block - standalone bubble outside timeline
+// User message block wrapper - adds spacing between consecutive user messages
+.user-message-block {
+  margin: @component-padding 0;
+
+  & + .user-message-block {
+    margin-top: @component-padding * 1.5;
+  }
+}
+
+// User message - standalone bubble outside timeline
 .message-user {
   width: fit-content;
   min-width: 100px;

@@ -201,10 +201,24 @@
 .message-assistant {
   background: transparent;
 
-  // Cursor shown only when streaming class is added (controlled by JS)
-  &.streaming .message-content::after {
-    content: '▋';
-    animation: blink 1s infinite;
+  // Streaming dots indicator (3 bouncing dots)
+  .streaming-dots {
+    display: inline-flex;
+    gap: 3px;
+    margin-left: 4px;
+    vertical-align: middle;
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: @text-color-subtle;
+      animation: bounce 1.4s ease-in-out infinite;
+
+      &:nth-child(1) { animation-delay: 0s; }
+      &:nth-child(2) { animation-delay: 0.2s; }
+      &:nth-child(3) { animation-delay: 0.4s; }
+    }
   }
 }
 
@@ -271,12 +285,6 @@
   }
 }
 
-// Cursor blink animation
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
 // Thinking block styles
 .thinking-block {
   background: fade(@background-color-info, 15%);
@@ -341,22 +349,27 @@
     cursor: default;
 
     .streaming-indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: @text-color-info;
-      animation: pulse 1.5s ease-in-out infinite;
+      display: inline-flex;
+      gap: 3px;
+      margin-left: 2px;
+
+      .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: @text-color-info;
+        animation: bounce 1.4s ease-in-out infinite;
+
+        &:nth-child(1) { animation-delay: 0s; }
+        &:nth-child(2) { animation-delay: 0.2s; }
+        &:nth-child(3) { animation-delay: 0.4s; }
+      }
     }
   }
 
   .thinking-content {
     border-top: 1px solid fade(@text-color-info, 20%);
   }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1); }
 }
 
 // Welcome page styles

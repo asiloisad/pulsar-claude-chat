@@ -86,7 +86,7 @@
     margin-top: @component-padding;
     padding: @component-padding / 2;
     background: @input-background-color;
-    border-radius: @component-border-radius;
+    border-radius: @component-border-radius*2 !important;
     font-family: var(--editor-font-family);
     font-size: 0.85em;
     white-space: pre-wrap;
@@ -99,6 +99,20 @@
   .tool-result-error {
     border-left-color: @text-color-error;
     background: fade(@text-color-error, 10%);
+  }
+
+  // Bash full command display
+  .tool-bash-command {
+    margin-top: @component-padding;
+    padding: @component-padding / 2;
+    background: @input-background-color;
+    border: 1px solid @tool-panel-border-color;
+    border-radius: 5px;
+    font-family: var(--editor-font-family);
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 200px;
+    overflow-y: auto;
   }
 
   // Expandable content

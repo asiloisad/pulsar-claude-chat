@@ -95,13 +95,6 @@
       ],
       "order": 3
     },
-    "allowedTools": {
-      "title": "Allowed Tools",
-      "description": "Comma-separated list of tools Claude can use",
-      "type": "string",
-      "default": "Read,Write,Edit,Glob,Grep,Bash",
-      "order": 4
-    },
     "thinkingMode": {
       "title": "Extended Thinking",
       "description": "Enable extended thinking mode to see Claude's reasoning process",

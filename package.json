@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@mathjax/src": "^4.0.0",
+    "@modelcontextprotocol/sdk": "^1.0.0",
     "etch": "^0.14.1",
     "pulsar-select-list": "^1.2.0"
   },
@@ -101,6 +102,15 @@
       "type": "boolean",
       "default": false,
       "order": 5
+    },
+    "mcpBridgePort": {
+      "title": "MCP Bridge Base Port",
+      "description": "Base port for MCP bridge. Auto-increments for multiple windows (e.g., 3000, 3001, 3002)",
+      "type": "integer",
+      "default": 3000,
+      "minimum": 1024,
+      "maximum": 65535,
+      "order": 6
     }
   }
 }

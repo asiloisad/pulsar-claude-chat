@@ -1,0 +1,130 @@
+// MCP Tool Styles for Pulsar integration
+// Styles for mcp__pulsar__ tools
+
+.claude-chat {
+  // MCP Pulsar tool styling
+  .tool-mcp-pulsar {
+    .tool-name {
+      margin-right: @component-padding / 2;
+
+      &::before {
+        content: "Pulsar/";
+        opacity: 0.5;
+      }
+    }
+
+    .tool-header-info {
+      gap: @component-padding / 2;
+    }
+  }
+
+  // MCP content container
+  .tool-mcp-content {
+    padding: @component-padding;
+  }
+
+  // Info row (cursor position, range, etc.)
+  .mcp-info-row {
+    display: flex;
+    align-items: center;
+    gap: @component-padding;
+    margin-bottom: @component-padding / 2;
+    font-size: 0.9em;
+  }
+
+  .mcp-label {
+    color: @text-color-subtle;
+    font-weight: 500;
+  }
+
+  .mcp-value {
+    color: @text-color;
+    font-family: var(--editor-font-family);
+    font-size: 0.95em;
+  }
+
+  // Badges (modified, active, etc.)
+  .mcp-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: @component-border-radius;
+    font-size: 0.8em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .mcp-modified {
+    background-color: fade(@text-color-warning, 20%);
+    color: @text-color-warning;
+  }
+
+  .mcp-active-badge {
+    background-color: fade(@text-color-success, 20%);
+    color: @text-color-success;
+  }
+
+  // List container (editors, project paths)
+  .tool-mcp-list {
+    padding: @component-padding / 2 @component-padding;
+  }
+
+  .mcp-list-item {
+    display: flex;
+    align-items: center;
+    gap: @component-padding;
+    padding: @component-padding / 4 0;
+
+    &.mcp-active {
+      .mcp-path {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .mcp-path {
+    font-family: var(--editor-font-family);
+    font-size: 0.9em;
+    color: @text-color;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:hover {
+      color: @text-color-highlight;
+      text-decoration: underline;
+    }
+  }
+
+  a.mcp-path {
+    color: @text-color-info;
+    cursor: pointer;
+  }
+
+  // Simple tool styling (InsertText, GoToPosition)
+  .tool-inserttext,
+  .tool-gotoposition {
+    .tool-name {
+      margin-right: @component-padding / 2;
+
+      &::before {
+        content: "Pulsar/";
+        opacity: 0.5;
+      }
+    }
+  }
+
+  // SaveFile status
+  .tool-savefile {
+    .tool-result-info {
+      &:contains("saved") {
+        color: @text-color-success;
+      }
+
+      &:contains("failed") {
+        color: @text-color-error;
+      }
+    }
+  }
+}

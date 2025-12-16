@@ -229,6 +229,11 @@
   bottom: -(@component-padding + @component-padding + 2px);
 }
 
+// For the final item - line extends to bottom of message content
+.timeline-item.timeline-last .timeline-line {
+  bottom: @component-padding;
+}
+
 // Timeline content wrapper
 .timeline-content {
   .message {

@@ -59,10 +59,8 @@
       "type": "string",
       "default": "right",
       "enum": [
-        "center",
-        "left",
         "right",
-        "bottom"
+        "left"
       ],
       "order": 1
     },

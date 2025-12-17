@@ -10,6 +10,7 @@ Interactive chat panel for [Claude Code](https://github.com/anthropics/claude-co
 - Context extender methods.
 - Extended thinking toggle.
 - Permission modes switch.
+- Built-in MCP server for AI-powered editor control.
 
 ## Installation
 
@@ -112,6 +113,79 @@ disposable.dispose();
 - `role` - Always `"assistant"`
 - `content` - The response text
 - `thinking` - Extended thinking content (if enabled)
+
+## MCP Server
+
+The package includes a built-in MCP (Model Context Protocol) server that allows AI assistants to programmatically control the Pulsar editor. The server starts automatically when claude-chat is activated and implements the [MCP specification](https://modelcontextprotocol.io/specification/2025-06-18).
+
+### Configuration
+
+For MCP clients (Claude Desktop, Claude Code, etc.), add this to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "pulsar": {
+      "url": "http://localhost:3000/mcp",
+      "type": "streamable"
+    }
+  }
+}
+```
+
+The port can be configured in package settings (`mcpBridgePort`). Default is `3000`.
+
+### Available Tools
+
+| Tool | Description |
+|------|-------------|
+| **GetActiveEditor** | Get content, file path, cursor position, and grammar of the active editor |
+| **GetSelection** | Get currently selected text and its range |
+| **InsertText** | Insert text at the current cursor position |
+| **ReplaceSelection** | Replace selected text with new text |
+| **OpenFile** | Open a file, optionally navigate to a specific line and column |
+| **GoToPosition** | Navigate to a specific line and column |
+| **GetOpenEditors** | List all open editor tabs with their status |
+| **GetProjectPaths** | Get project root folder paths |
+| **SaveFile** | Save the current or a specific file |
+| **SetSelections** | Set one or more selections (multi-cursor support) |
+| **GetAllSelections** | Get all current selections |
+| **RevealInTreeView** | Reveal a file in the tree view panel |
+| **CloseFile** | Close an editor tab |
+| **SplitPane** | Split the current pane in a direction |
+| **ClosePane** | Close the active pane |
+| **GetPanelState** | Get visibility state of all docks |
+| **Undo** | Undo the last change |
+| **Redo** | Redo the last undone change |
+| **FindText** | Find all occurrences of a pattern (supports regex) |
+| **GetContextAround** | Get lines of context around a match |
+| **DeleteLine** | Delete a single line |
+| **DeleteLineRange** | Delete a range of lines |
+| **GetLineCount** | Get total number of lines |
+
+### REST API (for debugging)
+
+In addition to the MCP protocol, the bridge exposes a simple REST API for debugging and direct integration:
+
+- `GET /health` - Health check
+- `GET /tools` - List available tools
+- `POST /tools/:ToolName` - Execute a tool
+
+Example:
+```bash
+# Get active editor content
+curl -X POST http://localhost:3000/tools/GetActiveEditor
+
+# Find text in editor
+curl -X POST http://localhost:3000/tools/FindText \
+  -H "Content-Type: application/json" \
+  -d '{"pattern": "function", "isRegex": false}'
+
+# Open a file at specific line
+curl -X POST http://localhost:3000/tools/OpenFile \
+  -H "Content-Type: application/json" \
+  -d '{"path": "src/main.js", "line": 42}'
+```
 
 # Contributing
 

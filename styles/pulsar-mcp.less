@@ -242,17 +242,15 @@
   // External Pulsar MCP tools (registered via mcp-tools service)
   // ============================================================================
 
-  // Linter messages (from linter-bundle)
-  .tool-mcp-linter {
-    .tool-linter-list {
-      margin-top: @component-padding;
-      border-radius: 5px;
-      overflow: hidden;
-      background: @input-background-color;
-      border: 1px solid @tool-panel-border-color;
-      max-height: 300px;
-      overflow-y: auto;
-    }
+  // Linter messages list (from linter-bundle GetLinterMessages tool)
+  .tool-linter-list {
+    margin-top: @component-padding;
+    border-radius: 5px;
+    overflow: hidden;
+    background: @input-background-color;
+    border: 1px solid @tool-panel-border-color;
+    max-height: 300px;
+    overflow-y: auto;
 
     .linter-item {
       display: flex;
@@ -322,11 +320,6 @@
       font-style: italic;
       text-align: center;
       background: fade(@input-background-color, 50%);
-    }
-
-    // Collapsed state
-    &.collapsed .tool-linter-list {
-      display: none;
     }
   }
 }

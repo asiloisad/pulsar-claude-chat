@@ -115,84 +115,11 @@ disposable.dispose();
 - `content` - The response text
 - `thinking` - Extended thinking content (if enabled)
 
-## MCP Server
+## MCP Server Integration
 
-The package includes a built-in MCP (Model Context Protocol) server that allows AI assistants to programmatically control the Pulsar editor. The server can be enabled/disabled in package settings (`pulsarMCP`, enabled by default) and implements the [MCP specification](https://modelcontextprotocol.io).
+This package integrates with [pulsar-mcp](https://github.com/asiloisad/pulsar-mcp) to provide MCP (Model Context Protocol) support. When pulsar-mcp is installed and running, Claude can directly interact with the Pulsar editor using the available tools.
 
-### Configuration
-
-For MCP clients (Claude Desktop, Claude Code, etc.), add this to your MCP configuration:
-
-```json
-{
-  "mcpServers": {
-    "pulsar": {
-      "url": "http://localhost:3000/mcp",
-      "type": "streamable"
-    }
-  }
-}
-```
-
-### Port Handling
-
-The base port can be configured in package settings (`mcpBridgePort`). Default is `3000`.
-
-**Automatic port discovery:** If the base port is in use (by another Pulsar window or external application), the server automatically finds the next available port (3001, 3002, etc.).
-
-External MCP clients configured with port `3000` will only control the window currently using that port. For the built-in claude-chat panel, this is handled automatically since it communicates with its own window's server.
-
-### Available Tools
-
-| Tool | Description |
-|------|-------------|
-| **GetActiveEditor** | Get content, file path, cursor position, and grammar of the active editor |
-| **GetSelection** | Get currently selected text and its range |
-| **InsertText** | Insert text at the current cursor position |
-| **ReplaceSelection** | Replace selected text with new text |
-| **OpenFile** | Open a file, optionally navigate to a specific line and column |
-| **GoToPosition** | Navigate to a specific line and column |
-| **GetOpenEditors** | List all open editor tabs with their status |
-| **GetProjectPaths** | Get project root folder paths |
-| **SaveFile** | Save the current or a specific file |
-| **SetSelections** | Set one or more selections (multi-cursor support) |
-| **GetAllSelections** | Get all current selections |
-| **RevealInTreeView** | Reveal a file in the tree view panel |
-| **CloseFile** | Close an editor tab |
-| **SplitPane** | Split the current pane in a direction |
-| **ClosePane** | Close the active pane |
-| **GetPanelState** | Get visibility state of all docks |
-| **Undo** | Undo the last change |
-| **Redo** | Redo the last undone change |
-| **FindText** | Find all occurrences of a pattern (supports regex) |
-| **GetContextAround** | Get lines of context around a match |
-| **DeleteLine** | Delete a single line |
-| **DeleteLineRange** | Delete a range of lines |
-| **GetLineCount** | Get total number of lines |
-
-### REST API (for debugging)
-
-In addition to the MCP protocol, the bridge exposes a simple REST API for debugging and direct integration:
-
-- `GET /health` - Health check
-- `GET /tools` - List available tools
-- `POST /tools/:ToolName` - Execute a tool
-
-Example:
-```bash
-# Get active editor content
-curl -X POST http://localhost:3000/tools/GetActiveEditor
-
-# Find text in editor
-curl -X POST http://localhost:3000/tools/FindText \
-  -H "Content-Type: application/json" \
-  -d '{"pattern": "function", "isRegex": false}'
-
-# Open a file at specific line
-curl -X POST http://localhost:3000/tools/OpenFile \
-  -H "Content-Type: application/json" \
-  -d '{"path": "src/main.js", "line": 42}'
-```
+See the [pulsar-mcp documentation](https://github.com/asiloisad/pulsar-mcp) for available tools and configuration.
 
 # Contributing
 

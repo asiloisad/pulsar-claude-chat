@@ -47,9 +47,9 @@
     }
   },
   "consumedServices": {
-    "mcp-tools": {
+    "pulsar-mcp": {
       "versions": {
-        "^1.0.0": "consumeMcpTools"
+        "^1.0.0": "consumePulsarMcp"
       }
     }
   },
@@ -109,22 +109,6 @@
         }
       ],
       "order": 3
-    },
-    "pulsarMCP": {
-      "title": "Pulsar MCP Server",
-      "description": "Enable Pulsar MCP server to give Claude direct access to editor features (selections, panes, tree view, etc.)",
-      "type": "boolean",
-      "default": true,
-      "order": 5
-    },
-    "mcpBridgePort": {
-      "title": "MCP Bridge Base Port",
-      "description": "Base port for MCP bridge. Auto-increments for multiple windows (e.g., 3000, 3001, 3002)",
-      "type": "integer",
-      "default": 3000,
-      "minimum": 1024,
-      "maximum": 65535,
-      "order": 6
     },
     "debugMode": {
       "title": "Debug Mode",

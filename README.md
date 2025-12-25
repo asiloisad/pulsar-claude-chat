@@ -10,7 +10,7 @@ Interactive chat panel for [Claude Code](https://github.com/anthropics/claude-co
 - Context extender methods.
 - Extended thinking toggle.
 - Permission modes switch.
-- Built-in MCP server for AI-powered editor control.
+- MCP tools integration via [pulsar-mcp](https://github.com/asiloisad/pulsar-mcp).
 
 ## Installation
 
@@ -114,12 +114,6 @@ disposable.dispose();
 - `role` - Always `"assistant"`
 - `content` - The response text
 - `thinking` - Extended thinking content (if enabled)
-
-## MCP Server Integration
-
-This package integrates with [pulsar-mcp](https://github.com/asiloisad/pulsar-mcp) to provide MCP (Model Context Protocol) support. When pulsar-mcp is installed and running, Claude can directly interact with the Pulsar editor using the available tools.
-
-See the [pulsar-mcp documentation](https://github.com/asiloisad/pulsar-mcp) for available tools and configuration.
 
 # Contributing
 

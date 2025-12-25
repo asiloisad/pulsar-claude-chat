@@ -33,10 +33,10 @@
       "claude-chat:clear-history"
     ],
     "atom-text-editor:not([mini])": [
-      "claude-chat:attach"
+      "editor:attach-to-claude"
     ],
     ".tree-view": [
-      "claude-chat:attach"
+      "tree-view:attach-to-claude"
     ]
   },
   "providedServices": {

@@ -16,6 +16,10 @@ Interactive chat panel for [Claude Code](https://github.com/anthropics/claude-co
 
 To install `claude-chat` search for [claude-chat](https://web.pulsar-edit.dev/packages/claude-chat) in the Install pane of the Pulsar settings or run `ppm install claude-chat`. Alternatively, you can run `ppm install asiloisad/pulsar-claude-chat` to install a package directly from the GitHub repository.
 
+## Chat History
+
+Chat sessions are stored in `~/.pulsar/claude-chat-sessions/` directory. Each session is saved as a JSON file containing messages, timestamps, project paths, and token usage.
+
 ## Service API
 
 The package provides a `claude-chat` service that other packages can consume:
